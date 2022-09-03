@@ -3,12 +3,17 @@ import {
   ContactTextWrapper,
   ContactName,
   Button,
-} from './ContactListItem.styled';
+} from "./ContactListItem.styled";
 
-import { useDeleteContactMutation } from 'redux/contacts/contactsApi';
-import PropTypes from 'prop-types';
+import { useDeleteContactMutation } from "redux/contacts/contactsApi";
 
-export const ContactListItem = ({ name, phone, id }) => {
+interface IProps {
+  name: string;
+  phone: string;
+  id: string;
+}
+
+export const ContactListItem: React.FC<IProps> = ({ name, phone, id }) => {
   const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
   return (
@@ -21,14 +26,8 @@ export const ContactListItem = ({ name, phone, id }) => {
         disabled={isLoading}
         onClick={() => deleteContact(id)}
       >
-        {isLoading ? 'Deleting...' : 'Delete'}
+        {isLoading ? "Deleting..." : "Delete"}
       </Button>
     </ContactItem>
   );
-};
-
-ContactListItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
 };

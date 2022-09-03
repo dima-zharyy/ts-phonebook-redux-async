@@ -1,34 +1,38 @@
-import { useState, useId } from 'react';
+import { useState, useId } from "react";
 import {
   Form,
   InnerFormContainer,
   FormLabel,
   FormInput,
   Button,
-} from './ContactForm.styled';
+} from "./ContactForm.styled";
 
-import { isContactInList } from 'helpers/isContactInList';
-import { nanoid } from 'nanoid';
+import { isContactInList } from "helpers/isContactInList";
+import { nanoid } from "nanoid";
 import {
   useAddContactMutation,
   useGetContactsQuery,
-} from 'redux/contacts/contactsApi';
+} from "redux/contacts/contactsApi";
 
-export const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+export const ContactForm: React.FC = () => {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const inputNameId = useId();
   const inputPhoneId = useId();
   const { data: contacts } = useGetContactsQuery();
   const [addContact, { isLoading }] = useAddContactMutation();
 
-  const handleSubmit = event => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!contacts) {
+      return <p>Something went wrong! Try later!</p>;
+    }
 
     if (isContactInList(contacts, name)) {
       alert(`${name} is already in contacts.`);
-      setName('');
-      setPhone('');
+      setName("");
+      setPhone("");
       return;
     }
 
@@ -37,19 +41,19 @@ export const ContactForm = () => {
 
     addContact(newContact);
 
-    setName('');
-    setPhone('');
+    setName("");
+    setPhone("");
   };
 
-  const handleInputChange = event => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     switch (name) {
-      case 'name':
+      case "name":
         setName(value);
         break;
 
-      case 'phone':
+      case "phone":
         setPhone(value);
         break;
 
@@ -89,7 +93,7 @@ export const ContactForm = () => {
         />
       </InnerFormContainer>
       <Button type="submit" disabled={isLoading}>
-        {isLoading ? 'Adding...' : 'Add contact'}
+        {isLoading ? "Adding..." : "Add contact"}
       </Button>
     </Form>
   );

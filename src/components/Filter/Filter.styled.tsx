@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 export const FilterWrapper = styled.div`
   display: flex;
@@ -6,7 +6,7 @@ export const FilterWrapper = styled.div`
   margin-bottom: 25px;
 `;
 
-export const FilterLabel = styled.div`
+export const FilterLabel = styled.label`
   margin-right: 12px;
 
   white-space: nowrap;

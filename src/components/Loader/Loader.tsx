@@ -9,7 +9,7 @@ export const Loader: React.FC = () => {
       color="#188ce8"
       ariaLabel="three-dots-loading"
       wrapperStyle={{ display: "flex", justifyContent: "center" }}
-      //@ts-ignore
+      // @ts-ignore
       wrapperClassName=""
       visible={true}
     />
